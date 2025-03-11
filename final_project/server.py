@@ -6,6 +6,10 @@ app = Flask("EmotionDetectionApp",template_folder='../templates',static_folder="
 @app.route("/emotionDetector")
 def get_emotions():
     text_to_analyze = request.args.get('textToAnalyze')
+
+    if not text_to_analyze:
+        return " Invalid text! Please try again!."
+
     emotions = emotion_detector(text_to_analyze)
     outString = "For the given statement, the system response is "
     outString += f"'anger': {emotions['anger']}, "
@@ -21,4 +25,4 @@ def render_index_page():
     return render_template('index.html')
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=5001)
